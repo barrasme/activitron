@@ -19,6 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('app')->group(function () {
+    Route::get('/', [UsersController::class, 'index'])->name('dashboard');
+    Route::get('/user/create', [UsersController::class, 'create'])->name('users.create');
+    Route::post('/user/create', [UsersController::class, 'store'])->name('users.store');
 
+    Route::get('/user/{id}', [UsersController::class, 'edit'])->name('users.edit');
+    Route::post('/user/{id}/update', [UsersController::class, 'update'])->name('users.update');
+
+    Route::post('/user/delete', [UsersController::class, 'delete'])->name('users.delete');
+})->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';

@@ -2,6 +2,7 @@
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
+            <a href="{{ Route('users.create') }}" class="float-right bg-green-700 text-white px-2 py-1 rounded"><small>NEW</small></a>
         </h1>
     </x-slot>
 
@@ -30,6 +31,11 @@
                                     <td class="border p-4">{{ $user->email }}</td>
                                     <td class="border p-4">
                                         <a href="{{ Route('users.edit' , ['id' => $user->id]) }}" class="bg-green-700 text-white px-2 py-1 rounded"><small>EDIT</small></a>
+                                        <form action="{{ Route('users.delete') }}" method="post" class="inline">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $user->id }}">
+                                            <button class="bg-red-700 text-white px-2 py-1 rounded"><small>DELETE</small></button>
+                                        </form>
                                     </td>
                                 </tr>
 

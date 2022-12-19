@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
 {
@@ -16,6 +19,27 @@ class UsersController extends Controller
 
         return view('users.index')
             ->with('users', $users);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function create()
+    {
+        return view('users.create');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        $data = $request->except('_token');
+        $data['password'] = Hash::make('123123123');
+        User::create($data);
+
+        return Redirect::route('dashboard');
     }
 
     /**
@@ -32,14 +56,24 @@ class UsersController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
         $user = User::FindOrFail($request->id);
         $user->update($request->except('_token'));
 
-        return view('users.edit')
-            ->with('user', $user);
+        return Redirect::route('dashboard');
+    }
+
+    /**
+     * @param String $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Request $request)
+    {
+        User::FindOrFail($request->id)->delete();
+
+        return Redirect::route('dashboard');
     }
 }

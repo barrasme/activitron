@@ -1,0 +1,20 @@
+{
+    "name": "barras/activitron",
+    "description": "A nice package for capturing activity on User models",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lylebarras",
+            "email": "lyle@barras.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Activitron\\ActivitronServiceProvider"
+            ]
+        }
+    }
+}
