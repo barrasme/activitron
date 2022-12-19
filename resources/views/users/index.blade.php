@@ -30,6 +30,8 @@
                                     <td class="border p-4">{{ $user->name }}</td>
                                     <td class="border p-4">{{ $user->email }}</td>
                                     <td class="border p-4">
+                                        <a href="{{ Route('users.activity' , ['id' => $user->id]) }}" class="bg-blue-700 text-white px-2 py-1 rounded"><small>Activity</small></a>
+
                                         <a href="{{ Route('users.edit' , ['id' => $user->id]) }}" class="bg-green-700 text-white px-2 py-1 rounded"><small>EDIT</small></a>
                                         <form action="{{ Route('users.delete') }}" method="post" class="inline">
                                             @csrf
@@ -38,7 +40,6 @@
                                         </form>
                                     </td>
                                 </tr>
-
                             @endforeach
                             </tbody>
                         </table>

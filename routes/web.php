@@ -28,6 +28,9 @@ Route::prefix('app')->group(function () {
     Route::post('/user/{id}/update', [UsersController::class, 'update'])->name('users.update');
 
     Route::post('/user/delete', [UsersController::class, 'delete'])->name('users.delete');
+
+    Route::get('/user/{id}/activity', [UsersController::class, 'activity'])->name('users.activity');
+
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {

@@ -2,12 +2,20 @@
 
 namespace Barras\Activitron;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model
 {
     protected $guarded = [];
+
+    protected $with = ['performer'];
+
+    public function performer()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * @param $model

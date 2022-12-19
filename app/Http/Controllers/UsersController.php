@@ -76,4 +76,16 @@ class UsersController extends Controller
 
         return Redirect::route('dashboard');
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function activity($id)
+    {
+        $user = User::FindOrFail($id)->with('activity')->first();
+
+        return view('users.activity')
+            ->with('user', $user);
+    }
 }
